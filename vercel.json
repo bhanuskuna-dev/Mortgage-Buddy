@@ -1,0 +1,10 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "functions": {
+    "app/api/qualify/route.ts": { "maxDuration": 60 },
+    "app/api/retrieve/route.ts": { "maxDuration": 60 },
+    "app/api/evals/route.ts": { "maxDuration": 300 }
+  }
+}

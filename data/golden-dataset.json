@@ -1,0 +1,177 @@
+[
+  {
+    "id": "eval-001",
+    "description": "Strong W-2, 20% down, excellent credit, DTI 28%",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 10000, "monthlyDebts": 500, "homePrice": 400000, "downPayment": 80000, "creditScoreRange": "excellent", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-002",
+    "description": "High income, large down payment, excellent credit, low DTI",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 15000, "monthlyDebts": 300, "homePrice": 500000, "downPayment": 150000, "creditScoreRange": "excellent", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-003",
+    "description": "Good credit, 10% down, W-2, DTI ~32%",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 8000, "monthlyDebts": 400, "homePrice": 300000, "downPayment": 30000, "creditScoreRange": "good", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-004",
+    "description": "Retired, excellent credit, 40% down, low debt",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 7000, "monthlyDebts": 200, "homePrice": 280000, "downPayment": 112000, "creditScoreRange": "excellent", "employmentType": "retired", "loanTerm": 15, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-005",
+    "description": "VA loan, excellent credit, 0% down, W-2 veteran",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 9000, "monthlyDebts": 300, "homePrice": 350000, "downPayment": 0, "creditScoreRange": "excellent", "employmentType": "W2", "loanTerm": 30, "loanType": "va" }
+  },
+  {
+    "id": "eval-006",
+    "description": "FHA loan, good credit, 3.5% down, DTI 35%",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 6000, "monthlyDebts": 200, "homePrice": 220000, "downPayment": 7700, "creditScoreRange": "good", "employmentType": "W2", "loanTerm": 30, "loanType": "fha" }
+  },
+  {
+    "id": "eval-007",
+    "description": "High income professional, jumbo conforming, good credit",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 25000, "monthlyDebts": 800, "homePrice": 750000, "downPayment": 150000, "creditScoreRange": "excellent", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-008",
+    "description": "Good credit, 15% down, low debts, stable W-2",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 7500, "monthlyDebts": 150, "homePrice": 280000, "downPayment": 42000, "creditScoreRange": "good", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-009",
+    "description": "Dual income household proxy, excellent credit, large down",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 18000, "monthlyDebts": 600, "homePrice": 600000, "downPayment": 120000, "creditScoreRange": "excellent", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-010",
+    "description": "Strong borrower, 15-year term, good credit, 25% down",
+    "category": "qualified",
+    "expectedStatus": "pass",
+    "profile": { "grossMonthlyIncome": 12000, "monthlyDebts": 400, "homePrice": 380000, "downPayment": 95000, "creditScoreRange": "excellent", "employmentType": "W2", "loanTerm": 15, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-011",
+    "description": "DTI exceeds 60%, poor credit, minimal down payment",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 4000, "monthlyDebts": 2000, "homePrice": 300000, "downPayment": 10000, "creditScoreRange": "poor", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-012",
+    "description": "Very low income, no down payment, poor credit",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 2500, "monthlyDebts": 800, "homePrice": 250000, "downPayment": 5000, "creditScoreRange": "poor", "employmentType": "other", "loanTerm": 30, "loanType": "fha" }
+  },
+  {
+    "id": "eval-013",
+    "description": "Poor credit below FHA minimum, high DTI",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 5000, "monthlyDebts": 1500, "homePrice": 200000, "downPayment": 10000, "creditScoreRange": "poor", "employmentType": "W2", "loanTerm": 30, "loanType": "fha" }
+  },
+  {
+    "id": "eval-014",
+    "description": "High debt load, DTI over 55%, fair credit",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 6000, "monthlyDebts": 2500, "homePrice": 250000, "downPayment": 12500, "creditScoreRange": "fair", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-015",
+    "description": "Minimal income, huge home price, extreme LTV",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 3000, "monthlyDebts": 500, "homePrice": 500000, "downPayment": 10000, "creditScoreRange": "poor", "employmentType": "other", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-016",
+    "description": "Poor credit, high DTI, insufficient down payment for FHA",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 4500, "monthlyDebts": 1800, "homePrice": 180000, "downPayment": 5000, "creditScoreRange": "poor", "employmentType": "W2", "loanTerm": 30, "loanType": "fha" }
+  },
+  {
+    "id": "eval-017",
+    "description": "Retired, very low fixed income, large purchase price",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 2000, "monthlyDebts": 400, "homePrice": 300000, "downPayment": 30000, "creditScoreRange": "fair", "employmentType": "retired", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-018",
+    "description": "Excessive DTI from student loans, poor credit",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 5000, "monthlyDebts": 2200, "homePrice": 200000, "downPayment": 10000, "creditScoreRange": "poor", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-019",
+    "description": "Negative equity scenario, LTV 110%",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 7000, "monthlyDebts": 500, "homePrice": 300000, "downPayment": -30000, "creditScoreRange": "good", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-020",
+    "description": "Credit below conventional minimum, DTI too high",
+    "category": "not_qualified",
+    "expectedStatus": "fail",
+    "profile": { "grossMonthlyIncome": 5500, "monthlyDebts": 1600, "homePrice": 220000, "downPayment": 22000, "creditScoreRange": "poor", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-021",
+    "description": "Borderline DTI 41.5%, fair credit 665, W-2",
+    "category": "borderline",
+    "expectedStatus": "borderline",
+    "profile": { "grossMonthlyIncome": 7000, "monthlyDebts": 400, "homePrice": 280000, "downPayment": 14000, "creditScoreRange": "fair", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-022",
+    "description": "Self-employed, good credit, DTI 38%, 15% down",
+    "category": "borderline",
+    "expectedStatus": "borderline",
+    "profile": { "grossMonthlyIncome": 9000, "monthlyDebts": 600, "homePrice": 320000, "downPayment": 48000, "creditScoreRange": "good", "employmentType": "self_employed", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-023",
+    "description": "FHA borderline: DTI 46%, fair credit 660, 3.5% down",
+    "category": "borderline",
+    "expectedStatus": "borderline",
+    "profile": { "grossMonthlyIncome": 5500, "monthlyDebts": 600, "homePrice": 200000, "downPayment": 7000, "creditScoreRange": "fair", "employmentType": "W2", "loanTerm": 30, "loanType": "fha" }
+  },
+  {
+    "id": "eval-024",
+    "description": "Near jumbo limit, excellent credit, DTI 39%",
+    "category": "borderline",
+    "expectedStatus": "borderline",
+    "profile": { "grossMonthlyIncome": 14000, "monthlyDebts": 1000, "homePrice": 870000, "downPayment": 87000, "creditScoreRange": "excellent", "employmentType": "W2", "loanTerm": 30, "loanType": "conventional" }
+  },
+  {
+    "id": "eval-025",
+    "description": "Self-employed, fair credit 670, DTI 40%, 10% down",
+    "category": "borderline",
+    "expectedStatus": "borderline",
+    "profile": { "grossMonthlyIncome": 8000, "monthlyDebts": 700, "homePrice": 300000, "downPayment": 30000, "creditScoreRange": "fair", "employmentType": "self_employed", "loanTerm": 30, "loanType": "conventional" }
+  }
+]
