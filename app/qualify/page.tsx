@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import QualificationForm from "@/components/QualificationForm";
 import QualificationResultPanel from "@/components/QualificationResult";
 import HITLFlag from "@/components/HITLFlag";
+import DocumentUpload from "@/components/DocumentUpload";
 import Disclaimer from "@/components/Disclaimer";
 import { Loader2 } from "lucide-react";
-import type { QualificationResult, CalculatorResult } from "@/lib/types";
+import type { QualificationResult, CalculatorResult, MortgageProfile } from "@/lib/types";
 
 interface ResultData {
   qualification: QualificationResult;
@@ -18,6 +19,7 @@ export default function QualifyPage() {
   const [result, setResult] = useState<ResultData | null>(null);
   const [loading, setLoading] = useState(false);
   const [ragReady, setRagReady] = useState(false);
+  const [appliedFields, setAppliedFields] = useState<Partial<MortgageProfile>>({});
 
   // Warm up the RAG store on page load
   useEffect(() => {
@@ -26,15 +28,11 @@ export default function QualifyPage() {
       .then((d) => { if (d.ingested) setRagReady(true); })
       .catch(() => {});
 
-    // Poll until ready
     const interval = setInterval(() => {
       fetch("/api/retrieve")
         .then((r) => r.json())
         .then((d) => {
-          if (d.ingested) {
-            setRagReady(true);
-            clearInterval(interval);
-          }
+          if (d.ingested) { setRagReady(true); clearInterval(interval); }
         })
         .catch(() => {});
     }, 3000);
@@ -58,12 +56,24 @@ export default function QualifyPage() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Form */}
-        <div className="bg-[var(--navy-900)] rounded-lg p-5 border border-slate-800">
-          <QualificationForm onResult={setResult} onLoading={setLoading} />
+        {/* Left column: upload + form */}
+        <div className="space-y-4">
+          {/* Document upload */}
+          <div className="bg-[var(--navy-900)] rounded-lg p-5 border border-slate-800">
+            <DocumentUpload onApply={(fields) => setAppliedFields(fields)} />
+          </div>
+
+          {/* Qualification form */}
+          <div className="bg-[var(--navy-900)] rounded-lg p-5 border border-slate-800">
+            <QualificationForm
+              onResult={setResult}
+              onLoading={setLoading}
+              appliedFields={appliedFields}
+            />
+          </div>
         </div>
 
-        {/* Result */}
+        {/* Right column: result */}
         <div className="space-y-4">
           {loading && (
             <div className="bg-[var(--navy-900)] rounded-lg p-8 border border-slate-800 flex flex-col items-center justify-center gap-3 text-slate-400">
@@ -82,7 +92,6 @@ export default function QualifyPage() {
                   sources={result.sources}
                 />
               </div>
-
               {result.qualification.hitl_required && (
                 <HITLFlag reasons={result.qualification.hitl_reasons ?? []} />
               )}
@@ -91,7 +100,7 @@ export default function QualifyPage() {
 
           {!loading && !result && (
             <div className="bg-[var(--navy-900)] rounded-lg p-8 border border-slate-800 flex items-center justify-center text-slate-600 text-sm">
-              Fill out the form to see your qualification assessment
+              Upload documents or fill out the form to see your qualification assessment
             </div>
           )}
         </div>

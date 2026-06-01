@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Shield, ShieldCheck, ShieldX, Loader2 } from "lucide-react";
 import type { MortgageProfile, QualificationResult, CalculatorResult, GuardrailResult } from "@/lib/types";
 import { logTrace, computeCost } from "@/lib/observability";
@@ -12,6 +12,7 @@ interface Props {
     sources: { index: number; source: string; excerpt: string }[];
   }) => void;
   onLoading: (loading: boolean) => void;
+  appliedFields?: Partial<MortgageProfile>;
 }
 
 const CREDIT_OPTIONS = [
@@ -21,7 +22,7 @@ const CREDIT_OPTIONS = [
   { value: "poor", label: "Poor (<650)" },
 ];
 
-export default function QualificationForm({ onResult, onLoading }: Props) {
+export default function QualificationForm({ onResult, onLoading, appliedFields }: Props) {
   const [profile, setProfile] = useState<MortgageProfile>({
     grossMonthlyIncome: 8000,
     monthlyDebts: 400,
@@ -35,6 +36,13 @@ export default function QualificationForm({ onResult, onLoading }: Props) {
   const [loading, setLoading] = useState(false);
   const [guardResult, setGuardResult] = useState<GuardrailResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Apply fields extracted from uploaded documents
+  useEffect(() => {
+    if (appliedFields && Object.keys(appliedFields).length > 0) {
+      setProfile((p) => ({ ...p, ...appliedFields }));
+    }
+  }, [appliedFields]);
 
   const set = (key: keyof MortgageProfile, value: unknown) =>
     setProfile((p) => ({ ...p, [key]: value }));
