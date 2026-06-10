@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MessageSquare, BarChart2, Activity } from "lucide-react";
+import { Home, MessageSquare, BarChart2, Activity, FileText } from "lucide-react";
 import CostIndicator from "./CostIndicator";
 
 const TABS = [
@@ -45,7 +45,20 @@ export default function NavBar() {
           })}
         </div>
 
-        <CostIndicator />
+        <div className="flex items-center gap-2">
+          <Link
+            href="/prd"
+            className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded text-sm transition-colors ${
+              pathname.startsWith("/prd")
+                ? "bg-slate-700 text-white"
+                : "text-slate-400 hover:text-white hover:bg-slate-800"
+            }`}
+          >
+            <FileText className="w-4 h-4" />
+            PRD
+          </Link>
+          <CostIndicator />
+        </div>
       </div>
 
       {/* Mobile tab bar */}
