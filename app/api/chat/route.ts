@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { ensureIngested } from "@/lib/regulatoryChecks";
 import { regulatoryStore } from "@/lib/vectorStore";
-import { COACH_PROMPT_V1, GUARDRAILS_PROMPT_V1, PROMPT_VERSIONS } from "@/lib/prompts";
+import { getCoachPrompt, GUARDRAILS_PROMPT_V1, PROMPT_VERSIONS } from "@/lib/prompts";
 import type { GuardrailResult } from "@/lib/types";
 
 const client = new Anthropic();
@@ -49,7 +49,7 @@ export async function POST(req: Request): Promise<Response> {
       ? chunks.map((c, i) => `[Source ${i + 1}] ${c.source}:\n${c.text.slice(0, 300)}`).join("\n\n")
       : "No specific regulatory documents retrieved for this query.";
 
-    const systemPrompt = `${COACH_PROMPT_V1}\n\nREGULATORY CONTEXT:\n${ragContext}`;
+    const systemPrompt = `${getCoachPrompt()}\n\nREGULATORY CONTEXT:\n${ragContext}`;
 
     // Build conversation history
     const messages = [

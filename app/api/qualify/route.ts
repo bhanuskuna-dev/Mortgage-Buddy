@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { calculateMortgage, checkRegulatory, CREDIT_SCORE_MIDPOINT } from "@/lib/calculator";
 import { ensureIngested } from "@/lib/regulatoryChecks";
 import { regulatoryStore } from "@/lib/vectorStore";
-import { QUALIFICATION_PROMPT_V1, GUARDRAILS_PROMPT_V1, PROMPT_VERSIONS } from "@/lib/prompts";
+import { getQualificationPrompt, GUARDRAILS_PROMPT_V1, PROMPT_VERSIONS } from "@/lib/prompts";
 import type { MortgageProfile, QualificationResult, GuardrailResult } from "@/lib/types";
 
 const client = new Anthropic();
@@ -92,7 +92,7 @@ Perform the 8-factor ATR assessment and return the JSON qualification result.`;
     const response = await client.messages.create({
       model: "claude-sonnet-4-6",
       max_tokens: 1500,
-      system: QUALIFICATION_PROMPT_V1,
+      system: getQualificationPrompt(),
       messages: [{ role: "user", content: userContent }],
     });
 

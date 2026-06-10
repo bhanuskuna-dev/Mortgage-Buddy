@@ -76,22 +76,57 @@ export default function ObservabilityDashboard() {
         </div>
       </div>
 
-      {/* Per-stage breakdown */}
-      {Object.keys(stats.byStage).length > 0 && (
-        <div className="bg-slate-800/30 rounded p-4 space-y-2">
-          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">By Stage</h3>
-          <div className="grid grid-cols-3 text-xs text-slate-500 font-medium pb-1 border-b border-slate-700">
-            <span>Stage</span><span className="text-center">Calls</span><span className="text-right">p50 Latency</span>
-          </div>
-          {Object.entries(stats.byStage).map(([stage, s]) => (
-            <div key={stage} className="grid grid-cols-3 text-sm">
-              <span className={STAGE_COLORS[stage] ?? "text-slate-300"}>{stage}</span>
-              <span className="text-center text-slate-400">{s.calls}</span>
-              <span className="text-right text-slate-400">{p50(stage)}</span>
+      {/* Per-stage and prompt version breakdowns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* By Stage */}
+        {Object.keys(stats.byStage).length > 0 && (
+          <div className="bg-slate-800/30 rounded p-4 space-y-2">
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">By Stage</h3>
+            <div className="grid grid-cols-3 text-xs text-slate-500 font-medium pb-1 border-b border-slate-700">
+              <span>Stage</span><span className="text-center">Calls</span><span className="text-right">p50</span>
             </div>
-          ))}
-        </div>
-      )}
+            {Object.entries(stats.byStage).map(([stage, s]) => (
+              <div key={stage} className="grid grid-cols-3 text-sm">
+                <span className={STAGE_COLORS[stage] ?? "text-slate-300"}>{stage}</span>
+                <span className="text-center text-slate-400">{s.calls}</span>
+                <span className="text-right text-slate-400">{p50(stage)}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* By Prompt Version */}
+        {traces.length > 0 && (() => {
+          const byVersion: Record<string, { calls: number; totalCost: number; avgConfidence: number; confCount: number }> = {};
+          for (const t of traces) {
+            const v = t.promptVersion || "unknown";
+            if (!byVersion[v]) byVersion[v] = { calls: 0, totalCost: 0, avgConfidence: 0, confCount: 0 };
+            byVersion[v].calls++;
+            byVersion[v].totalCost += t.costUsd;
+            if (t.confidence !== null) {
+              byVersion[v].avgConfidence += t.confidence;
+              byVersion[v].confCount++;
+            }
+          }
+          return (
+            <div className="bg-slate-800/30 rounded p-4 space-y-2">
+              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">By Prompt Version</h3>
+              <div className="grid grid-cols-3 text-xs text-slate-500 font-medium pb-1 border-b border-slate-700">
+                <span>Version</span><span className="text-center">Calls</span><span className="text-right">Avg Conf</span>
+              </div>
+              {Object.entries(byVersion).map(([ver, s]) => (
+                <div key={ver} className="grid grid-cols-3 text-sm">
+                  <span className="text-blue-400 font-mono">{ver}</span>
+                  <span className="text-center text-slate-400">{s.calls}</span>
+                  <span className="text-right text-slate-400">
+                    {s.confCount > 0 ? `${(s.avgConfidence / s.confCount * 100).toFixed(0)}%` : "—"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          );
+        })()}
+      </div>
 
       {/* Trace table */}
       {traces.length > 0 ? (
